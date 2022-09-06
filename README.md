@@ -21,6 +21,9 @@ As output, an Excel (.xlsx) file will be created in chosen output folder with ge
 5. All files should be in Excel Workbook "_.xlsx" format (not .xls or not "Strict Open XML Spreadsheet" as it has the same suffix .xlsx)
 6. There mustn't be a highlighted/edited cell in a row under the final row. (For example, last row is row number 51, you accidently highlighted row 62. Code thinks there are gene data in row 62, therefore it crashes.)
 
+# VCF Comparison
+Compares multiple VCF files for common positions (multisample comparison)
+
 ### How to use Genome Detector - VCF Comparator:
 * Add at least 2 VCF (Variant Call Format) files by clicking "Add file" button (there is no number limit)
 * Select your output folder which comes pre-selected (must be a folder)
@@ -34,6 +37,9 @@ At last an Excel (.xlsx) file will be created in chosen output folder with multi
 4. Numbers under the positions column may have ONLY "." which make reading more easy (like 132.681). Cell will be read as an integer value.
 5. It is the best that you don't alter/change/touch the fresh VCF file before processing it, to make sure a potential error is not your doing.
 
+# XLSX Comparison
+Compares multiple XLSX files for common positions (multisample comparison)
+
 ### How to use Genome Detector - XLSX Comparator:
 * Add at least 2 XLSX files by clicking "Add file" button (there is no number limit)
 * Select your output folder which comes pre-selected (must be a folder)
@@ -45,7 +51,7 @@ At last an Excel (.xlsx) file will be created in chosen output folder with multi
 2. Headers/categories row should have "CHROM" at it's first cell. Keyword can be changed in settings. (As the headers rows index is not known, we must find it by searching some keywords in each row)
 3. Headers/categories row should have "POS" at the cell/column, where positions of mutations are displayed. Keyword can be changed in settings.
 4. Numbers under the positions column may have ONLY "." which make reading more easy (like 132.681). Cell will be read as an integer value.
-5. All files should be in Excel Workbook "_.xlsx" format (not .xls or not "Strict Open XML Spreadsheet" as it has the same suffix .xlsx)
+5. All files should be in Excel Workbook ".xlsx" format (not .xls or not "Strict Open XML Spreadsheet" as it has the same suffix .xlsx)
 6. There mustn't be a highlighted/edited cell in a row under the final row. (For example, last row is row number 351, you accidently highlighted row 462. Code thinks there are more data in row 462, therefore it crashes.)
 
 
