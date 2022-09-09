@@ -34,7 +34,7 @@ At last an Excel (.xlsx) file will be created in chosen output folder with multi
 1. It is assumed that first rows are metadata for VCF file, which start with "##". If they don't exist, it is no problem.
 2. Headers/categories row should have "CHROM" at it's first cell. Keyword can be changed in settings. (As the headers rows index is not known, we must find it by searching some keywords in each row)
 3. Headers/categories row should have "POS" at the cell/column, where positions of mutations are displayed. Keyword can be changed in settings.
-4. Numbers under the positions column may have ONLY "." which make reading more easy (like 132.681). Cell will be read as an integer value.
+4. Numbers under the positions column may have String values to make reading more easy (like 132.681). In that case, cell will be read as an integer value.
 5. It is the best that you don't alter/change/touch the fresh VCF file before processing it, to make sure a potential error is not your doing.
 
 # XLSX Comparison
