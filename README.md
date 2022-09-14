@@ -17,7 +17,7 @@ As output, an Excel (.xlsx) file will be created in chosen output folder with ge
 1. Excel file of patients gene data must have a column named "Gene symbols" at 1st row (can be changed in settings)
 2. Excel file of gene pool must have a column named "Gene" at 1st row and others shouldn't have "Gene" in their names (can be changed in settings)
 3. Excel file of gene pool shouldn't have a text (gene) that is spread across two rows/columns (and stuff like that), keep things simple...
-4. Excel file of gene pool is allowed to have "\" or "," or "=" or ";" between two gene names in one cell (!only those!). In that case both genes will be searched. (i.e. -> KIF23=MKLP1)
+4. Excel file of gene pool is allowed to have "\\" or "," or "=" or ";" between two gene names in one cell (!only those!). In that case both genes will be searched. (i.e. -> KIF23=MKLP1)
 5. All files should be in Excel Workbook "_.xlsx" format (not .xls or not "Strict Open XML Spreadsheet" as it has the same suffix .xlsx)
 6. There mustn't be a highlighted/edited cell in a row under the final row. (For example, last row is row number 51, you accidently highlighted row 62. Code thinks there are gene data in row 62, therefore it crashes.)
 
