@@ -28,6 +28,13 @@ public class XLSX_ComparatorMenu extends javax.swing.JFrame {
         
         // Window location
         setLocation(GenomeDetector.WinX - getWidth()/2, GenomeDetector.WinY - getHeight()/2);
+        
+        // ProgressBar invisible
+        progressBar_XLSX.setVisible(false);
+        
+        // set splitters
+        splitElementsTxtfld.setText(XLSX_Comparator.splitters.replace("|", " ").trim());
+        outDiffCheckbox.setSelected(false);
     }
     
     public void close() {
@@ -54,9 +61,15 @@ public class XLSX_ComparatorMenu extends javax.swing.JFrame {
         outFileName = new javax.swing.JTextField();
         outFileLabel = new javax.swing.JLabel();
         outPathLoc = new javax.swing.JTextField();
+        addFileButton = new javax.swing.JButton();
+        progressBar_XLSX = new javax.swing.JProgressBar();
+        cancelButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         pathsTable = new javax.swing.JTable();
-        addFileButton = new javax.swing.JButton();
+        splitCheckbox = new javax.swing.JCheckBox();
+        splitElementsTxtfld = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        outDiffCheckbox = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -100,7 +113,8 @@ public class XLSX_ComparatorMenu extends javax.swing.JFrame {
             }
         });
 
-        outPathLabel.setText("Select output folder (where to store it):");
+        outPathLabel.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        outPathLabel.setText("Output folder:");
 
         outFileName.setToolTipText("");
         outFileName.addActionListener(new java.awt.event.ActionListener() {
@@ -109,7 +123,8 @@ public class XLSX_ComparatorMenu extends javax.swing.JFrame {
             }
         });
 
-        outFileLabel.setText("Name of output file (.xlsx):");
+        outFileLabel.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        outFileLabel.setText("Output file name:");
 
         outPathLoc.setEditable(false);
         outPathLoc.addActionListener(new java.awt.event.ActionListener() {
@@ -118,16 +133,33 @@ public class XLSX_ComparatorMenu extends javax.swing.JFrame {
             }
         });
 
+        addFileButton.setText("Add file");
+        addFileButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addFileButtonActionPerformed(evt);
+            }
+        });
+
+        progressBar_XLSX.setValue(50);
+        progressBar_XLSX.setBorderPainted(false);
+
+        cancelButton.setText("Cancel");
+        cancelButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelButtonActionPerformed(evt);
+            }
+        });
+
         pathsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "File paths"
+                "File paths", "FCHR", "ACHR"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -136,11 +168,33 @@ public class XLSX_ComparatorMenu extends javax.swing.JFrame {
         });
         pathsTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(pathsTable);
+        if (pathsTable.getColumnModel().getColumnCount() > 0) {
+            pathsTable.getColumnModel().getColumn(0).setResizable(false);
+            pathsTable.getColumnModel().getColumn(0).setPreferredWidth(400);
+            pathsTable.getColumnModel().getColumn(1).setResizable(false);
+            pathsTable.getColumnModel().getColumn(2).setResizable(false);
+        }
 
-        addFileButton.setText("Add file");
-        addFileButton.addActionListener(new java.awt.event.ActionListener() {
+        splitCheckbox.setText("Split cell text with");
+        splitCheckbox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addFileButtonActionPerformed(evt);
+                splitCheckboxActionPerformed(evt);
+            }
+        });
+
+        splitElementsTxtfld.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                splitElementsTxtfldActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Helvetica Neue", 2, 10)); // NOI18N
+        jLabel1.setText("(space between every splitter) ");
+
+        outDiffCheckbox.setText("Output the differences (instead of commonities)");
+        outDiffCheckbox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                outDiffCheckboxActionPerformed(evt);
             }
         });
 
@@ -148,38 +202,49 @@ public class XLSX_ComparatorMenu extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(progressBar_XLSX, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(130, 130, 130)
-                .addComponent(Title, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(infoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(218, 218, 218)
-                .addComponent(compareButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(242, 242, 242)
+                        .addComponent(Title, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(infoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(cancelButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(compareButton))
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(outFileLabel, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(jScrollPane1)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(splitCheckbox, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(splitElementsTxtfld, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(jLabel1)
+                                            .addGap(168, 168, 168)
+                                            .addComponent(addFileButton))
+                                        .addComponent(outFileName))
+                                    .addComponent(outDiffCheckbox, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(33, 33, 33))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(selectOutputPathButton, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(outFileLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(outFileName, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(outPathLabel)
-                            .addComponent(outPathLoc, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jSeparator1)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(addFileButton)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(33, 33, 33))
+                            .addComponent(outPathLoc, javax.swing.GroupLayout.PREFERRED_SIZE, 675, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -189,25 +254,34 @@ public class XLSX_ComparatorMenu extends javax.swing.JFrame {
                     .addComponent(backButton)
                     .addComponent(Title)
                     .addComponent(infoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addGap(34, 34, 34)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(addFileButton)
-                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(addFileButton)
+                    .addComponent(splitElementsTxtfld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(splitCheckbox)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(outDiffCheckbox)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addComponent(outPathLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(selectOutputPathButton)
                     .addComponent(outPathLoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(outFileName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(outFileLabel))
+                .addGap(18, 18, 18)
+                .addComponent(outFileLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(outFileName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(compareButton)
-                .addGap(12, 12, 12))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(compareButton)
+                    .addComponent(cancelButton))
+                .addGap(12, 12, 12)
+                .addComponent(progressBar_XLSX, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -231,7 +305,7 @@ public class XLSX_ComparatorMenu extends javax.swing.JFrame {
         GenomeDetector.WinY = getY() + getHeight()/2;
 
         close();
-        infoWindow.wakeup();
+        infoWindow.wakeup(infoWindow.Messages.XLSX_COMPARATOR);
     }//GEN-LAST:event_infoButtonActionPerformed
 
     private void selectOutputPathButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectOutputPathButtonActionPerformed
@@ -265,26 +339,50 @@ public class XLSX_ComparatorMenu extends javax.swing.JFrame {
             return;
         }
         
-        String[] paths = new String[pathsTable.getModel().getRowCount()];
-        for (int i=0; i < pathsTable.getModel().getRowCount(); i++)
-            paths[i] = pathsTable.getModel().getValueAt(i, 0).toString();
+        // Prerequisites
+        String[] paths           = new String[pathsTable.getModel().getRowCount()];
+        String[] ROWID_firstCell = new String[pathsTable.getModel().getRowCount()];
+        String[] ROWID_aimedCell = new String[pathsTable.getModel().getRowCount()];
         
-        setCursor(new java.awt.Cursor(java.awt.Cursor.WAIT_CURSOR));
+        for (int i=0; i < pathsTable.getModel().getRowCount(); i++) {
+            paths[i]           = pathsTable.getModel().getValueAt(i, 0).toString();
+            ROWID_firstCell[i] = pathsTable.getModel().getValueAt(i, 1).toString();
+            ROWID_aimedCell[i] = pathsTable.getModel().getValueAt(i, 2).toString();
+        }
+        VCF_Comparator.ROWID_firstCell = ROWID_firstCell;
+        VCF_Comparator.ROWID_aimedCell = ROWID_aimedCell;
+        XLSX_Comparator.isSplitChecked = splitCheckbox.isSelected();
+        XLSX_Comparator.isOutputDiffs  = outDiffCheckbox.isSelected();
+        String splitters               = splitElementsTxtfld.getText();
+        for (int i=0; i < "\\.[]{}()<>*+-=!?^$|".length(); i++)  // add \\ in front of special characters
+            splitters = splitters.replace(String.valueOf("\\.[]{}()<>*+-=!?^$|".charAt(i)), "\\\\" + String.valueOf("\\.[]{}()<>*+-=!?^$|".charAt(i)));
+        XLSX_Comparator.splitters = splitters.replace(" ", "|");
+        progressBar_XLSX.setVisible(true);
+        
         
         try {
-            GenomeDetector.start_XLSX_comparator(
+            setCursor(new java.awt.Cursor(java.awt.Cursor.WAIT_CURSOR));
+            progressBar_XLSX.setValue(50);
+            progressBar_XLSX.setVisible(true);
+            
+            XLSX_Comparator.start(
                     paths,
                     outPathLoc.getText(),
                     "/" + outFileName.getText()
             );
+            
             setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+            progressBar_XLSX.setVisible(false);
             javax.swing.JOptionPane.showMessageDialog(this, "File successfully generated:\n" + outPathLoc.getText() + "/" + outFileName.getText(), "Success", 1);
 
         } catch (Exception e) {  // IOException doesn't work here, trust me
-            System.out.println("Couldn't start GenomeDetector.start_XLSX_comparator(): " + e);
-            
             setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-            javax.swing.JOptionPane.showMessageDialog(this, "Search failed: One of the files are probably faulty.\n\nPlease click (?) on the right corner of the\nscreen to see the rules of input excel files. \nPlease fix the formatting and try again.", "Search failed", 2);
+            progressBar_XLSX.setVisible(false);
+            
+            System.out.println("Couldn't start GenomeDetector.start_XLSX_comparator() (line " + e.getStackTrace()[0].getLineNumber() + "): " + e);
+            e.printStackTrace();
+            
+            javax.swing.JOptionPane.showMessageDialog(this, "Search failed: One of the files are probably faulty. (XLSX Comparator)\n\nClick (i) button on the right corner of the\nscreen to see the rules of input excel files. \nPlease check the formatting and try again.\n\n\nDebug\n" + e, "Search failed", 2);
         }
     }//GEN-LAST:event_compareButtonActionPerformed
 
@@ -292,7 +390,7 @@ public class XLSX_ComparatorMenu extends javax.swing.JFrame {
         JFileChooser fileChooser = new JFileChooser();
         
         fileChooser.setCurrentDirectory(new File(System.getProperty("user.home") + "/Desktop/"));
-        fileChooser.setFileFilter(new FileNameExtensionFilter("Excel File (2013-)", "xlsx"));
+        fileChooser.setFileFilter(new FileNameExtensionFilter("Excel Workbook", "xlsx"));
         fileChooser.setAcceptAllFileFilterUsed(false);
         fileChooser.setDialogTitle("Select one of your Excel files");
 
@@ -307,9 +405,25 @@ public class XLSX_ComparatorMenu extends javax.swing.JFrame {
                     return;
             
             // else: add filePath to table
-            ((javax.swing.table.DefaultTableModel) pathsTable.getModel()).addRow(new Object[]{filePath});
+            ((javax.swing.table.DefaultTableModel) pathsTable.getModel()).addRow(new Object[]{filePath, "CHROM", "POS"});  // Default search values
         }
     }//GEN-LAST:event_addFileButtonActionPerformed
+
+    private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cancelButtonActionPerformed
+
+    private void splitCheckboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_splitCheckboxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_splitCheckboxActionPerformed
+
+    private void splitElementsTxtfldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_splitElementsTxtfldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_splitElementsTxtfldActionPerformed
+
+    private void outDiffCheckboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_outDiffCheckboxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_outDiffCheckboxActionPerformed
 
     public static void wakeup() {
         try {
@@ -332,15 +446,21 @@ public class XLSX_ComparatorMenu extends javax.swing.JFrame {
     private javax.swing.JLabel Title;
     private javax.swing.JButton addFileButton;
     private javax.swing.JButton backButton;
+    private javax.swing.JButton cancelButton;
     private javax.swing.JButton compareButton;
     private javax.swing.JButton infoButton;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JCheckBox outDiffCheckbox;
     private javax.swing.JLabel outFileLabel;
     private javax.swing.JTextField outFileName;
     private javax.swing.JLabel outPathLabel;
     private javax.swing.JTextField outPathLoc;
     private javax.swing.JTable pathsTable;
+    public static javax.swing.JProgressBar progressBar_XLSX;
     private javax.swing.JButton selectOutputPathButton;
+    private javax.swing.JCheckBox splitCheckbox;
+    private javax.swing.JTextField splitElementsTxtfld;
     // End of variables declaration//GEN-END:variables
 }

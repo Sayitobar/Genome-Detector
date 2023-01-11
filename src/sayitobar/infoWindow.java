@@ -7,34 +7,63 @@ package sayitobar;
 import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
 
-/**
- *
- * @author mac
- */
+
 public class infoWindow extends javax.swing.JFrame {
 
     /**
      * Creates new form infoWindow
      */
+    public enum Messages {
+        DETECTOR("<u>How to use Genome Detector - Gene Detector:</u>\n"
+                + "· Select your patient's gene file (must be Excel .xlsx file)\n"
+                + "· Select your gene pool (must be Excel .xlsx file)\n"
+                + "· Select your output folder which comes pre-selected (must be a folder)\n"
+                + "· Create a name for your new Excel file, which will be created automatically\n"
+                + "All (four) input places must be filled in order to work.\n"
+                + "As output, an Excel (.xlsx) file will be created in chosen output folder with gene occurrences of your gene pool in your patient's gene data.\n\n"
+                + "<u>Rules of input Excel files:</u>\n"
+                + "1. Excel file of patients gene data must have a column named \"Gene symbols\" at 1st row (can be changed in settings)\n"
+                + "2. Excel file of gene pool must have a column named \"Gene\" at 1st row and others shouldn't have \"Gene\" in their names (can be changed in settings)\n"
+                + "3. Excel file of gene pool shouldn't have a text (gene) that is spread across two rows/columns (and stuff like that), keep things simple...\n"
+                + "4. Excel file of gene pool is allowed to have \"/\" or \",\" or \"=\" or \";\" between two gene names in one cell (!only those!). In that case both genes will be searched. (i.e. -> KIF23=MKLP1)\n"
+                + "5. All files should be in Excel Workbook \"_.xlsx\" format (not .xls or not \"Strict Open XML Spreadsheet\" as it has the same suffix .xlsx)\n"
+                + "6. There mustn't be a highlighted/edited cell in a row under the final row. (For example, last row is row number 51, you accidently highlighted row 62. Code thinks there are gene data in row 62, therefore it crashes.)\n"
+                + "\n\nGenomeDetector " + GenomeDetector.version + " by Sayitobar Inc.\n\nBarış Sayitoğlu\nContact: bsayitoglu@gmail.com\nGithub: https://github.com/Sayitobar/Genome-Detector"),
+        VCF_COMPARATOR("<u>How to use Genome Detector - VCF Comparator:</u>\n"
+                + "· Add at least 2 VCF (Variant Call Format) files by clicking \"Add file\" button (there is no number limit)\n"
+                + "· Select your output folder which comes pre-selected (must be a folder)\n"
+                + "· Create a name for your new Excel file, which will be created automatically\n\n"
+                + "At last an Excel (.xlsx) file will be created in chosen output folder with multiple spreadsheets containing common positions of VCF files.\n\n"
+                + "<u>Rules of input VCF files:</u>\n"
+                + "1. It is assumed that first rows are metadata for VCF file, which start with \"##\". If they don't exist, it is no problem.\n"
+                + "2. Headers/categories row should have \"CHROM\" at it's first cell. Keyword can be changed in settings. (As the headers rows index is not known, we must find it by searching some keywords in each row)\n"
+                + "3. Headers/categories row should have \"POS\" at the cell/column, where positions of mutations are displayed. Keyword can be changed in settings.\n"
+                + "4. Numbers under the positions column may have text between numbers to make reading more easy (like 132.681 or 12,134).\n"
+                + "5. It is the best that you don't alter/change/touch the fresh VCF file before processing it, to make sure a potential error is not your doing.\n"
+                + "\n\nGenomeDetector " + GenomeDetector.version + " by Sayitobar Inc.\n\nBarış Sayitoğlu\nContact: bsayitoglu@gmail.com\nGithub: https://github.com/Sayitobar/Genome-Detector"),
+        XLSX_COMPARATOR("FCHR: First cell of the categories row (headers row)\nACHR: Aimed cell of the categories row (headers row) - the column to be compared\n\n<u>How to use Genome Detector - XLSX Comparator:</u>\n"
+                + "· Add at least 2 XLSX files by clicking \"Add file\" button (there is no number limit)\n"
+                + "· Select your output folder which comes pre-selected (must be a folder)\n"
+                + "· Create a name for your new Excel file, which will be created automatically\n\n"
+                + "At last an Excel (.xlsx) file will be created in chosen output folder with multiple spreadsheets containing common positions of XLSX files.\n\n"
+                + "<u>Rules of input XLSX files:</u>\n"
+                + "1. First rows of XLSX files may have metadata starting with \"##\". If they don't exist, it is no problem. (As these kinds of files mostly get converted from a VCF file to Excel, they tend to have \"##\" rows)\n"
+                + "2. Headers/categories row should have \"CHROM\" at it's first cell. Keyword can be changed in settings (FCHR). (As the headers rows index is not known, we must find it by searching some keywords in each row)\n"
+                + "3. Headers/categories row should have \"POS\" at the cell/column, where positions of mutations are displayed. Keyword can be changed in settings (ACHR).\n"
+                + "4. Numbers under the positions column may have text between numbers to make reading more easy (like 132.681 or 12,134).\n"
+                + "5. All files should be in Excel Workbook \"_.xlsx\" format (not .xls or not \"Strict Open XML Spreadsheet\" as it has the same suffix .xlsx)\n"
+                + "6. There mustn't be a highlighted/edited cell in a row under the final row. (For example, last row is row number 351, you accidently highlighted row 462. Code thinks there are more data in row 462, therefore it crashes.)\n"
+                + "\n\nGenomeDetector " + GenomeDetector.version + " by Sayitobar Inc.\n\nBarış Sayitoğlu\nContact: bsayitoglu@gmail.com\nGithub: https://github.com/Sayitobar/Genome-Detector");
+        
+        Messages(String value) {this.message = value;}
+        private final String message;
+        public String getMsg() {return this.message;}
+    }
+    
     public infoWindow() {
         initComponents();
         
-        String message = "In order to use GenomeDetector properly:\n"
-                + "· Select your patient's gene file (must be Excel .xlsx file)\n"
-                + "· Select your gene pool (must be Excel .xlsx file)\n"
-                + "· Select your output folder (must be a folder) (comes pre-selected)\n"
-                + "· Select your desired name for your new excel file (creates itself)\n\n"
-                + "All (four) input places must be filled in order to work.\n"
-                + "At last an Excel (.xlsx) file will be created in your selected output folder with gene occurrences of your gene pool in your patient's gene data.\n\n"
-                + "Rules of input excel files:\n"
-                + "1. Excel file of patients gene data must have a column named \"Gene symbols\" at 1st row\n"
-                + "2. Excel file of desired gene pool must have a column named \"Gene\" at 1st row and others shouldn't have \"Gene\" in their names\n"
-                + "3. Excel file of desired gene pool shouldn't have a text (gene) that is spread across two rows (and stuff like that), keep things simple...\n"
-                + "4. Excel file of desired gene pool is allowed to have \"/\" or \",\" or \"=\" or \";\" between two genes in one cell (!only those!). In that case both genes will be searched. (i.e. -> KIF23=MKLP1)\n"
-                + "5. Excel files should be in \"_.xlsx\" format (not .xls)\n"
-                + "\nGenomeDetector " + GenomeDetector.version + " by Sayitobar Inc.\n\nBarış Sayitoğlu\nContact: bsayitoglu@gmail.com";
-        
-        textArea.setText("<html>" + message.replaceAll("<","&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br/>") + "</html>");
+        textArea.setText("<html>" + msg.getMsg().replaceAll("\n", "<br/>") + "</html>");
         
         // Window location
         setLocation(GenomeDetector.WinX - getWidth()/2, GenomeDetector.WinY - getHeight()/2);
@@ -86,11 +115,11 @@ public class infoWindow extends javax.swing.JFrame {
                         .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(textArea, javax.swing.GroupLayout.PREFERRED_SIZE, 489, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(textArea, javax.swing.GroupLayout.PREFERRED_SIZE, 876, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(184, 184, 184)
+                        .addGap(379, 379, 379)
                         .addComponent(Heading)))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -98,8 +127,8 @@ public class infoWindow extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(Heading)
                 .addGap(18, 18, 18)
-                .addComponent(textArea, javax.swing.GroupLayout.DEFAULT_SIZE, 565, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addComponent(textArea, javax.swing.GroupLayout.DEFAULT_SIZE, 604, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(backButton)
                 .addContainerGap())
         );
@@ -114,13 +143,28 @@ public class infoWindow extends javax.swing.JFrame {
         GenomeDetector.WinY = getY() + getHeight()/2;
         
         close();
-        DetectorMenu.wakeup();
+        
+        switch (msg) {
+            case DETECTOR:
+                DetectorMenu.wakeup();
+                break;
+            case VCF_COMPARATOR:
+                VCF_ComparatorMenu.wakeup();
+                break;
+            case XLSX_COMPARATOR:
+                XLSX_ComparatorMenu.wakeup();
+                break;
+            default:
+                break;
+        }
+
     }//GEN-LAST:event_backButtonActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void wakeup() {
+    private static Messages msg;
+    public static void wakeup(infoWindow.Messages message) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -138,10 +182,9 @@ public class infoWindow extends javax.swing.JFrame {
         }
         
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new infoWindow().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            msg = message;
+            new infoWindow().setVisible(true);
         });
     }
 

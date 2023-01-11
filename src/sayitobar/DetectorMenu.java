@@ -23,6 +23,14 @@ public class DetectorMenu extends javax.swing.JFrame {
         
         // Window location
         setLocation(GenomeDetector.WinX - getWidth()/2, GenomeDetector.WinY - getHeight()/2);
+        
+        // Set jtextFields
+        P_GenesCellValue.setText(Detector.P_GenesCellValue);
+        L_GenesCellValue.setText(Detector.L_GenesCellValue);
+        
+        // Set splitters
+        if (Detector.splitters.trim().equals(""))  Detector.splitters = "/|,|=|;";
+        splitElementsTxtfld.setText(Detector.splitters.replace("|", " ").trim());
     }
 
     /**
@@ -50,7 +58,13 @@ public class DetectorMenu extends javax.swing.JFrame {
         infoButton = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
         backButton = new javax.swing.JButton();
-        jSeparator3 = new javax.swing.JSeparator();
+        P_GenesCellValue = new javax.swing.JTextField();
+        description1 = new javax.swing.JLabel();
+        description2 = new javax.swing.JLabel();
+        L_GenesCellValue = new javax.swing.JTextField();
+        splitElementsTxtfld = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        splitCheckbox = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -121,9 +135,9 @@ public class DetectorMenu extends javax.swing.JFrame {
 
         outPathLabel.setText("Select output folder (where to store it):");
 
-        patientFileLabel.setText("Select patient's gene file (.xlsx):");
+        patientFileLabel.setText("Select first gene file (.xlsx):");
 
-        genePoolFileLabel.setText("Select your gene pool file (.xlsx):");
+        genePoolFileLabel.setText("Select second gene file (.xlsx):");
 
         infoButton.setFont(new java.awt.Font("Helvetica Neue", 0, 10)); // NOI18N
         javax.swing.Icon icon = javax.swing.UIManager.getIcon("OptionPane.informationIcon");
@@ -146,57 +160,102 @@ public class DetectorMenu extends javax.swing.JFrame {
             }
         });
 
+        P_GenesCellValue.setText("-");
+        P_GenesCellValue.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                P_GenesCellValueActionPerformed(evt);
+            }
+        });
+
+        description1.setText("Column name of gene symbols (first file)");
+
+        description2.setText("Column name of gene symbols (second file)");
+
+        L_GenesCellValue.setText("-");
+        L_GenesCellValue.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                L_GenesCellValueActionPerformed(evt);
+            }
+        });
+
+        splitElementsTxtfld.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                splitElementsTxtfldActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Helvetica Neue", 2, 12)); // NOI18N
+        jLabel1.setText("(space between every splitter) ");
+
+        splitCheckbox.setSelected(true);
+        splitCheckbox.setText("Split cell text with");
+        splitCheckbox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                splitCheckboxActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(selectGenePoolButton, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(genePoolFileLabel)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(genePoolFileLoc)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(selectOutputPathButton, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(outFileLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(outFileName, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(outPathLabel)
-                            .addComponent(outPathLoc, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(selectPatientButton, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(patientFileLoc)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(patientFileLabel))
-                                        .addGap(0, 0, Short.MAX_VALUE))))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(Title, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(129, 129, 129)))))
-                .addGap(7, 7, 7)
-                .addComponent(infoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
                 .addGap(182, 182, 182)
                 .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(selectOutputPathButton, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(outFileLabel)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(outFileName, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(outPathLabel)
+                                    .addComponent(outPathLoc, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(Title, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(129, 129, 129)))
+                        .addGap(7, 7, 7)
+                        .addComponent(infoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(selectGenePoolButton, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(genePoolFileLabel)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(genePoolFileLoc)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(0, 0, Short.MAX_VALUE)
+                                    .addComponent(description2)
+                                    .addGap(90, 90, 90)
+                                    .addComponent(L_GenesCellValue, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel1)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(splitCheckbox)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(splitElementsTxtfld, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(selectPatientButton, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(description1, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(P_GenesCellValue, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(patientFileLabel)
+                                .addComponent(patientFileLoc, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -206,21 +265,33 @@ public class DetectorMenu extends javax.swing.JFrame {
                     .addComponent(Title)
                     .addComponent(infoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(backButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addGap(34, 34, 34)
                 .addComponent(patientFileLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(selectPatientButton)
                     .addComponent(patientFileLoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(description1)
+                    .addComponent(P_GenesCellValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28)
                 .addComponent(genePoolFileLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(selectGenePoolButton)
                     .addComponent(genePoolFileLoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(L_GenesCellValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(description2))
+                .addGap(28, 28, 28)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(splitElementsTxtfld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(splitCheckbox))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
                 .addComponent(outPathLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -246,23 +317,35 @@ public class DetectorMenu extends javax.swing.JFrame {
             return;
         }
 
-        setCursor(new java.awt.Cursor(java.awt.Cursor.WAIT_CURSOR));
+        Detector.P_GenesCellValue = P_GenesCellValue.getText();
+        Detector.L_GenesCellValue = L_GenesCellValue.getText();
+        String splitters          = splitElementsTxtfld.getText();
+        for (int i=0; i < "\\.[]{}()<>*+-=!?^$|".length(); i++)  // add "\\" in front of special characters
+            splitters = splitters.replace(String.valueOf("\\.[]{}()<>*+-=!?^$|".charAt(i)), "\\\\" + String.valueOf("\\.[]{}()<>*+-=!?^$|".charAt(i)));
+        Detector.splitters      = splitters.replace(" ", "|");
+        if (!splitCheckbox.isSelected())  Detector.splitters = "                                                                                     ";
+        
         
         try {
-            GenomeDetector.start_detector(
+            setCursor(new java.awt.Cursor(java.awt.Cursor.WAIT_CURSOR));
+            
+            Detector.start(
                     patientFileLoc.getText(),
                     genePoolFileLoc.getText(),
                     outPathLoc.getText(),
                     "/" + outFileName.getText()
             );
+            
             setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
             javax.swing.JOptionPane.showMessageDialog(this, "File successfully generated:\n" + outPathLoc.getText() + "/" + outFileName.getText(), "Success", 1);
 
         } catch (Exception e) {  // IOException doesn't work here, trust me
-            System.out.println("Couldn't start GenomeDetector.start(): " + e);
-            
             setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-            javax.swing.JOptionPane.showMessageDialog(this, "Search failed: One of the files are faulty.\n\nPlease click (?) on the right corner of the\nscreen to see the rules of input excel files. \nPlease fix the formatting and try again.", "Search failed", 2);
+            
+            System.out.println("Couldn't start Detector.start() (line " + e.getStackTrace()[0].getLineNumber() + "): " + e);
+            e.printStackTrace();
+            
+            javax.swing.JOptionPane.showMessageDialog(this, "Search failed: One of the files are faulty. (Gene Detector)\n\nPlease click (?) on the right corner of the\nscreen to see the rules of input excel files. \nPlease check the formatting and try again.\n\n\nDebug:\n" + e, "Search failed", 2);
         }
         
         // dispose();
@@ -351,7 +434,7 @@ public class DetectorMenu extends javax.swing.JFrame {
         GenomeDetector.WinY = getY() + getHeight()/2;
         
         close();
-        infoWindow.wakeup();
+        infoWindow.wakeup(infoWindow.Messages.DETECTOR);
     }//GEN-LAST:event_infoButtonActionPerformed
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
@@ -365,15 +448,25 @@ public class DetectorMenu extends javax.swing.JFrame {
         MainMenu.wakeup();
     }//GEN-LAST:event_backButtonActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void P_GenesCellValueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_P_GenesCellValueActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_P_GenesCellValueActionPerformed
+
+    private void L_GenesCellValueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_L_GenesCellValueActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_L_GenesCellValueActionPerformed
+
+    private void splitElementsTxtfldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_splitElementsTxtfldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_splitElementsTxtfldActionPerformed
+
+    private void splitCheckboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_splitCheckboxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_splitCheckboxActionPerformed
+
+    
+    
     public static void wakeup() {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -392,13 +485,17 @@ public class DetectorMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField L_GenesCellValue;
+    private javax.swing.JTextField P_GenesCellValue;
     private javax.swing.JLabel Title;
     private javax.swing.JButton backButton;
+    private javax.swing.JLabel description1;
+    private javax.swing.JLabel description2;
     private javax.swing.JLabel genePoolFileLabel;
     private javax.swing.JTextField genePoolFileLoc;
     private javax.swing.JButton infoButton;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JLabel outFileLabel;
     private javax.swing.JTextField outFileName;
     private javax.swing.JLabel outPathLabel;
@@ -409,5 +506,7 @@ public class DetectorMenu extends javax.swing.JFrame {
     private javax.swing.JButton selectGenePoolButton;
     private javax.swing.JButton selectOutputPathButton;
     private javax.swing.JButton selectPatientButton;
+    private javax.swing.JCheckBox splitCheckbox;
+    private javax.swing.JTextField splitElementsTxtfld;
     // End of variables declaration//GEN-END:variables
 }
