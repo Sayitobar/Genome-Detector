@@ -69,7 +69,11 @@ At last an Excel (.xlsx) file will be created in chosen output folder with multi
 3. All files should be in Excel Workbook ".xlsx" format (not .xls or not `Strict Open XML Spreadsheet` as it has the same suffix .xlsx)
 4. First rows of XLSX files may have metadata starting with "##". If they don't exist, it's perfect. (As these kinds of files mostly get converted from a VCF file to Excel, they tend to have "##" rows)
 5. Numbers under the positions column may have String values to make reading more easy (like 132.681). In that case, cell will be read as an integer value.
-6. There mustn't be a highlighted/edited cell in a row under the final row. (For example, last row is row number 351, you accidently highlighted row 462. Algorithm thinks there are more data in row 462, therefore it crashes.)
+6. There mustn't be a highlighted/edited cell in a row under the final row. (For example, last row is row number 351, you accidently highlighted row 462. Algorithm thinks there are more data in row 462, therefore it crashes.
+
+## New feature: Dev Console
+Click the gear icon on the top right corner, next to the (i) button. It will open a DevConsole window. There you can see every operation done. As there is no progress bar and sometimes program gets stuck due to faulty files, open dev console and see it with your eyes, if your file is being processed.
+
 
 ###### Contact
 bsayitoglu@gmail.com
