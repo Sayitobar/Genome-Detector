@@ -1,25 +1,27 @@
 # Genome-Detector
 * Searches for some genes in an Excel file
-* Compares multiple VCF or Excel files for common positions (multisample comparison)
+* Compares multiple VCF or XLSX files for common/different positions (multisample comparison). It works like a simple comparator, but faster.
 
 # Gene Detector
-Searches for some genes in an Excel file
+Searches for some genes in an XLSX file
 
 ### How to use Genome Detector - Gene Detector:
-* Select your patient's gene file (must be Excel .xlsx file)
-* Select your gene pool (must be Excel .xlsx file)
-* Select your output folder which comes pre-selected (must be a folder)
-* Create a name for your new Excel file, which will be created automatically
+* Select first file, for example your patient's genes   (must be Excel .xlsx file)
+* Select second file, for example your gene pool        (must be Excel .xlsx file)
+* Write the "Column name of gene symbols" for both of your files. (i.e. If "Genes" is the header of your genes column, write that in.)
+
+* If desired, change your pre-selected output folder
+* If desired, name your new Excel file (gets created automatically)
+* If desired, mark or unmark "Split cell text" or add your custom splitter. Just put a space between every splitters. (i.e. KIF23=MKLP1 will be splitted and recognized as two seperate genes)
+
 All (four) input places must be filled in order to work.
-As output, an Excel (.xlsx) file will be created in chosen output folder with gene occurrences of your gene pool in your patient's gene data.
+As output, an Excel (.xlsx) file will be created in chosen output folder with gene occurrences of your gene pool in your patient's gene data. (second file - first file)
 
 ### Rules of input Excel files:
-1. Excel file of patients gene data must have a column named "Gene symbols" at 1st row (can be changed in settings)
-2. Excel file of gene pool must have a column named "Gene" at 1st row and others shouldn't have "Gene" in their names (can be changed in settings)
-3. Excel file of gene pool shouldn't have a text (gene) that is spread across two rows/columns (and stuff like that), keep things simple...
-4. Excel file of gene pool is allowed to have "\\" or "," or "=" or ";" between two gene names in one cell (!only those!). In that case both genes will be searched. (i.e. -> KIF23=MKLP1)
-5. All files should be in Excel Workbook "_.xlsx" format (not .xls or not "Strict Open XML Spreadsheet" as it has the same suffix .xlsx)
-6. There mustn't be a highlighted/edited cell in a row under the final row. (For example, last row is row number 51, you accidently highlighted row 62. Code thinks there are gene data in row 62, therefore it crashes.)
+1. Excel file of gene pool shouldn't have a text (gene) that is spread across two rows/columns (and stuff like that), keep things simple...
+2. All files should be in Excel Workbook "_.xlsx" format (not .xls or not "Strict Open XML Spreadsheet" as it has the same suffix .xlsx)
+3. There mustn't be a highlighted/edited cell in a row under the final row. (For example, last row is row number 51, you accidently highlighted row 62. Algorythm thinks there are gene data in row 62, therefore it crashes.)
+4. Excel file of gene pool is allowed to have "\\" or "," or "=" or ";" between two gene names in one cell and more if you add your custom splitter. In that case both genes will be searched.
 
 # VCF Comparison
 Compares multiple VCF files for common positions (multisample comparison)
