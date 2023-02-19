@@ -7,8 +7,8 @@ Searches for some genes in an XLSX file
 (Slower than XLSX Comparator. If your files are big, use XLSX Comparator instead.)
 
 ### How to use Genome Detector - Gene Detector:
-* Select first file, for example your patient's genes   (must be Excel .xlsx file)
-* Select second file, for example your gene pool        (must be Excel .xlsx file)
+* Select first file, for example your gene pool (must be Excel .xlsx file)
+* Select second file, for example your patient's genes (must be Excel .xlsx file)
 * Write the `Column name of gene symbols` for both of your files. (i.e. If "Genes" is the header of your genes column, write that in.)
 
 * If desired, change your pre-selected `Output folder`
@@ -16,13 +16,13 @@ Searches for some genes in an XLSX file
 * If desired, mark or unmark `Split cell text` or add your custom splitter. Just put a space between every splitters. (i.e. KIF23=MKLP1 will be splitted and recognized as two seperate genes)
 
 All (four) input places must be filled in order to work.
-As output, an Excel (.xlsx) file will be created in chosen output folder with gene occurrences of your gene pool in your patient's gene data. (second file - first file)
+As output, an Excel (.xlsx) file will be created in chosen output folder with gene occurrences of your gene pool (1st file) in your patient's gene data (2nd file).
 
 ### Rules of input Excel files:
 1. Excel file of gene pool shouldn't have a text (gene) that is spread across two rows/columns (and stuff like that), keep things simple...
 2. All files should be in Excel Workbook "_.xlsx" format (not .xls or not "Strict Open XML Spreadsheet" as it has the same suffix .xlsx)
 3. There mustn't be a highlighted/edited cell in a row under the final row. (For example, last row is row number 51, you accidently highlighted row 62. Algorithm thinks there are gene data in row 62, therefore it crashes.)
-4. Excel file of gene pool is allowed to have "\\" or "," or "=" or ";" or your custom splitters between two gene names in one cell and more if you add your custom splitter. In that case both genes will be searched.
+4. Excel file of gene pool (first file) is allowed to have "\\" or "," or "=" or ";" or your custom splitters between two gene names in one cell and more if you add your custom splitter. In that case both genes will be searched.
 
 # VCF Comparison
 Compares multiple VCF files for common positions (multisample comparison)
