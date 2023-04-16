@@ -43,13 +43,14 @@ public class MainMenu extends javax.swing.JFrame {
         Title = new javax.swing.JLabel();
         detectorButton = new javax.swing.JButton();
         vcfComparisonButton = new javax.swing.JButton();
-        comparatorExplLabel = new javax.swing.JLabel();
+        vcfcompExpLabel = new javax.swing.JLabel();
         detectorExplLabel = new javax.swing.JLabel("<html>Search for some genes in patient's gene list</html>", javax.swing.SwingConstants.RIGHT);
         jSeparator1 = new javax.swing.JSeparator();
         xlsxComparisonButton = new javax.swing.JButton();
-        comparatorExplLabel1 = new javax.swing.JLabel();
+        xlsxcompExpLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setBackground(new java.awt.Color(51, 51, 51));
         setResizable(false);
 
         Title.setFont(new java.awt.Font("Futura", 0, 28)); // NOI18N
@@ -72,8 +73,8 @@ public class MainMenu extends javax.swing.JFrame {
             }
         });
 
-        comparatorExplLabel.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
-        comparatorExplLabel.setText("<html>Compare multiple VCF files and get common cells in selected column (great for: Multisample comparison)</html>");
+        vcfcompExpLabel.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+        vcfcompExpLabel.setText("<html>Compare multiple VCF files and get common cells in selected column (great for: Multisample comparison)</html>");
 
         detectorExplLabel.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
         detectorExplLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -88,8 +89,8 @@ public class MainMenu extends javax.swing.JFrame {
             }
         });
 
-        comparatorExplLabel1.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
-        comparatorExplLabel1.setText("<html>Compare multiple XLSX files and get common cells in selected column (great for: Multisample comparison)</html>");
+        xlsxcompExpLabel.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+        xlsxcompExpLabel.setText("<html>Compare multiple XLSX files and get common cells in selected column (great for: Multisample comparison)</html>");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -109,8 +110,8 @@ public class MainMenu extends javax.swing.JFrame {
                     .addComponent(detectorButton, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(comparatorExplLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(comparatorExplLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(xlsxcompExpLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(vcfcompExpLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(detectorExplLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27))
         );
@@ -133,9 +134,9 @@ public class MainMenu extends javax.swing.JFrame {
                         .addGap(36, 36, 36)
                         .addComponent(detectorExplLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(comparatorExplLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(vcfcompExpLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(comparatorExplLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(xlsxcompExpLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(52, Short.MAX_VALUE))
         );
 
@@ -191,12 +192,12 @@ public class MainMenu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Title;
-    private javax.swing.JLabel comparatorExplLabel;
-    private javax.swing.JLabel comparatorExplLabel1;
     private javax.swing.JButton detectorButton;
     private javax.swing.JLabel detectorExplLabel;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JButton vcfComparisonButton;
+    private javax.swing.JLabel vcfcompExpLabel;
     private javax.swing.JButton xlsxComparisonButton;
+    private javax.swing.JLabel xlsxcompExpLabel;
     // End of variables declaration//GEN-END:variables
 }

@@ -41,10 +41,14 @@ public class XLSX_Comparator {
                 if (line.startsWith("#")) continue;
 
                 // else check if client wants to split cells & append it/them
-                if (isSplitChecked)
-                    pos.addAll(Arrays.asList(line.split("\t")[VCF_Comparator.POS_INDEX].split(splitters)));
-                else
-                    pos.add(line.split("\t")[VCF_Comparator.POS_INDEX]);
+                try {
+                    if (isSplitChecked)
+                        pos.addAll(Arrays.asList(line.split("\t")[VCF_Comparator.POS_INDEX].split(splitters)));
+                    else
+                        pos.add(line.split("\t")[VCF_Comparator.POS_INDEX]);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    throw new IOException("Headers row could not be found! (Check FCHR & ACHR)");
+                }
             }
 
             reader.close();
@@ -78,14 +82,13 @@ public class XLSX_Comparator {
 
 
     public static void start(String[] paths, String newFileLoc, String newFileName) throws IOException, OpenXML4JException, SAXException {
-        long startTime = System.nanoTime();
-
         // .xlsx to .vcf conversion
         for (int i=0; i < paths.length; i++) {
             String path = GenomeDetector.convert_XLSX_to_VCF(paths[i], paths[i].replace(".xlsx", ".vcf"), true);
             paths[i]    = path;
-            XLSX_ComparatorMenu.progressBar_XLSX.setValue((i+1)/(paths.length+2) * 100);
+            GenomeDetector.progressBar.setValue((int) ((i+1.0)/(paths.length+2.0) * 100));
         }
+        // XLSX_ComparatorMenu.progressBar_XLSX.setStringPainted(true);  // shows percentage as text on progressBar
 
         System.out.println("Started XLSX files comparison...");
         System.out.println("\tInput XLSX files:\t" + Arrays.toString(paths));
@@ -93,11 +96,9 @@ public class XLSX_Comparator {
 
 
         List<List<String>> commonPositions = XLSX_Comparator.getCommonPositionsVCFs(paths);  // if differences selected, diff of first file
-        XLSX_ComparatorMenu.progressBar_XLSX.setValue((paths.length+1)/(paths.length+2) * 100);
+        GenomeDetector.progressBar.setValue((int) ((paths.length+1.0)/(paths.length+2.0) * 100));
 
         VCF_Comparator.VCF_createNewXLSXwithCommonPositions(newFileLoc + newFileName, paths, commonPositions);
-        XLSX_ComparatorMenu.progressBar_XLSX.setValue(100);
-
-        System.out.println("\n\nTotal creation time: " + (System.nanoTime()-startTime)/1000000000.0 + " secs");
+        GenomeDetector.progressBar.setValue(100);
     }
 }

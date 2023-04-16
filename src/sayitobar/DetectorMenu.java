@@ -65,6 +65,7 @@ public class DetectorMenu extends javax.swing.JFrame {
         splitElementsTxtfld = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         splitCheckbox = new javax.swing.JCheckBox();
+        devButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -187,11 +188,18 @@ public class DetectorMenu extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Helvetica Neue", 2, 12)); // NOI18N
         jLabel1.setText("(space between every splitter) ");
 
-        splitCheckbox.setSelected(true);
         splitCheckbox.setText("Split cell text with");
         splitCheckbox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 splitCheckboxActionPerformed(evt);
+            }
+        });
+
+        devButton.setFont(new java.awt.Font("Helvetica Neue", 0, 10)); // NOI18N
+        devButton.setIcon(javax.swing.UIManager.getIcon("FileView.hardDriveIcon"));
+        devButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                devButtonActionPerformed(evt);
             }
         });
 
@@ -208,7 +216,7 @@ public class DetectorMenu extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(selectOutputPathButton, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -218,13 +226,15 @@ public class DetectorMenu extends javax.swing.JFrame {
                                         .addComponent(outFileName, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(outPathLabel)
                                     .addComponent(outPathLoc, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(7, 7, 7))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(Title, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(129, 129, 129)))
-                        .addGap(7, 7, 7)
+                                .addGap(105, 105, 105)
+                                .addComponent(devButton, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                         .addComponent(infoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(selectGenePoolButton, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -236,8 +246,8 @@ public class DetectorMenu extends javax.swing.JFrame {
                                 .addGroup(layout.createSequentialGroup()
                                     .addGap(0, 0, Short.MAX_VALUE)
                                     .addComponent(description2)
-                                    .addGap(90, 90, 90)
-                                    .addComponent(L_GenesCellValue, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGap(92, 92, 92)
+                                    .addComponent(L_GenesCellValue, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(jLabel1)
                                 .addGroup(layout.createSequentialGroup()
@@ -264,7 +274,8 @@ public class DetectorMenu extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Title)
                     .addComponent(infoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(backButton))
+                    .addComponent(backButton)
+                    .addComponent(devButton, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(34, 34, 34)
                 .addComponent(patientFileLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -464,6 +475,18 @@ public class DetectorMenu extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_splitCheckboxActionPerformed
 
+    private void devButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_devButtonActionPerformed
+        System.out.println("Opening DEV CONSOLE");
+
+        Thread t = new Thread() {
+            @Override
+            public void run() {
+                devConsole.wakeup();
+            }
+        };
+        t.start();
+    }//GEN-LAST:event_devButtonActionPerformed
+
     
     
     public static void wakeup() {
@@ -491,6 +514,7 @@ public class DetectorMenu extends javax.swing.JFrame {
     private javax.swing.JButton backButton;
     private javax.swing.JLabel description1;
     private javax.swing.JLabel description2;
+    private javax.swing.JButton devButton;
     private javax.swing.JLabel genePoolFileLabel;
     private javax.swing.JTextField genePoolFileLoc;
     private javax.swing.JButton infoButton;

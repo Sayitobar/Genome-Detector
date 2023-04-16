@@ -7,6 +7,10 @@ package sayitobar;
 import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -24,12 +28,13 @@ public class XLSX_ComparatorMenu extends javax.swing.JFrame {
         
         // Set outputFile location and outputLoc
         outPathLoc.setText(System.getProperty("user.home") + "/Desktop");
-        outFileName.setText("OUT_" + new java.text.SimpleDateFormat("yyyy-MM-dd_hh-mm").format(new java.util.Date()) + ".xlsx");
+        outFileName.setText("OUT_" + new java.text.SimpleDateFormat("yyMMdd-hhmm").format(new java.util.Date()) + ".xlsx");
         
         // Window location
         setLocation(GenomeDetector.WinX - getWidth()/2, GenomeDetector.WinY - getHeight()/2);
         
-        // ProgressBar invisible
+        // ProgressBar setup
+        GenomeDetector.progressBar = progressBar_XLSX;
         progressBar_XLSX.setVisible(false);
         
         // set splitters
@@ -70,6 +75,7 @@ public class XLSX_ComparatorMenu extends javax.swing.JFrame {
         splitElementsTxtfld = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         outDiffCheckbox = new javax.swing.JCheckBox();
+        devButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -198,6 +204,14 @@ public class XLSX_ComparatorMenu extends javax.swing.JFrame {
             }
         });
 
+        devButton.setFont(new java.awt.Font("Helvetica Neue", 0, 10)); // NOI18N
+        devButton.setIcon(javax.swing.UIManager.getIcon("FileView.hardDriveIcon"));
+        devButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                devButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -206,13 +220,6 @@ public class XLSX_ComparatorMenu extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(242, 242, 242)
-                        .addComponent(Title, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(infoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGap(32, 32, 32)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -224,6 +231,7 @@ public class XLSX_ComparatorMenu extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(outFileLabel, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(outDiffCheckbox, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                         .addComponent(jScrollPane1)
                                         .addGroup(layout.createSequentialGroup()
@@ -235,16 +243,21 @@ public class XLSX_ComparatorMenu extends javax.swing.JFrame {
                                             .addGap(168, 168, 168)
                                             .addComponent(addFileButton))
                                         .addComponent(outFileName))
-                                    .addComponent(outDiffCheckbox, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addGap(33, 33, 33))
+                                    .addComponent(devButton, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(242, 242, 242)
+                        .addComponent(Title, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(selectOutputPathButton, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(outPathLabel)
-                            .addComponent(outPathLoc, javax.swing.GroupLayout.PREFERRED_SIZE, 675, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                            .addComponent(outPathLoc, javax.swing.GroupLayout.PREFERRED_SIZE, 681, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(infoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -253,7 +266,8 @@ public class XLSX_ComparatorMenu extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(backButton)
                     .addComponent(Title)
-                    .addComponent(infoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(infoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(devButton, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(34, 34, 34)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -264,7 +278,7 @@ public class XLSX_ComparatorMenu extends javax.swing.JFrame {
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(outDiffCheckbox)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addComponent(outPathLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -276,7 +290,7 @@ public class XLSX_ComparatorMenu extends javax.swing.JFrame {
                 .addComponent(outFileName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(compareButton)
                     .addComponent(cancelButton))
@@ -333,9 +347,22 @@ public class XLSX_ComparatorMenu extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_outPathLocActionPerformed
 
+    
     private void compareButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_compareButtonActionPerformed
+        class OneShotTask implements Runnable {
+            XLSX_ComparatorMenu frame;
+            OneShotTask(XLSX_ComparatorMenu frame) { this.frame = frame; }  // I needed to create a class implementing Runnable
+                public void run() {                                         // to pass this (XLSX_ComparatorMenu) as parameter
+                    compare(frame);                                         // in order to pop-up window alerts to work.
+                }
+        }
+        GenomeDetector.t = new Thread(new OneShotTask(this));
+        GenomeDetector.t.start();
+        GenomeDetector.running = true;
+    }//GEN-LAST:event_compareButtonActionPerformed
+    private void compare(XLSX_ComparatorMenu frame) {
         if (pathsTable.getModel().getRowCount() < 2 || "".equals(outFileName.getText()) || "".equals(outPathLoc.getText())) {
-            // if any places empty & only 1 file given, do not run it.
+            // if any places empty OR only 1 file given, do not run it.
             return;
         }
         
@@ -353,17 +380,21 @@ public class XLSX_ComparatorMenu extends javax.swing.JFrame {
         VCF_Comparator.ROWID_aimedCell = ROWID_aimedCell;
         XLSX_Comparator.isSplitChecked = splitCheckbox.isSelected();
         XLSX_Comparator.isOutputDiffs  = outDiffCheckbox.isSelected();
+        
+        String tempSplitters           = XLSX_Comparator.splitters;
         String splitters               = splitElementsTxtfld.getText();
         for (int i=0; i < "\\.[]{}()<>*+-=!?^$|".length(); i++)  // add \\ in front of special characters
             splitters = splitters.replace(String.valueOf("\\.[]{}()<>*+-=!?^$|".charAt(i)), "\\\\" + String.valueOf("\\.[]{}()<>*+-=!?^$|".charAt(i)));
         XLSX_Comparator.splitters = splitters.replace(" ", "|");
-        progressBar_XLSX.setVisible(true);
         
         
         try {
+            long startTime = System.nanoTime();
+            
             setCursor(new java.awt.Cursor(java.awt.Cursor.WAIT_CURSOR));
-            progressBar_XLSX.setValue(50);
+            progressBar_XLSX.setValue(0);
             progressBar_XLSX.setVisible(true);
+            
             
             XLSX_Comparator.start(
                     paths,
@@ -371,21 +402,27 @@ public class XLSX_ComparatorMenu extends javax.swing.JFrame {
                     "/" + outFileName.getText()
             );
             
+            
             setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
             progressBar_XLSX.setVisible(false);
-            javax.swing.JOptionPane.showMessageDialog(this, "File successfully generated:\n" + outPathLoc.getText() + "/" + outFileName.getText(), "Success", 1);
+            System.out.println("\n\nTotal creation time: " + (System.nanoTime()-startTime)/1000000000.0 + " secs");
+            javax.swing.JOptionPane.showMessageDialog(frame, "File successfully generated:\n" + outPathLoc.getText() + "/" + outFileName.getText() + "\n(in " + (double)Math.round((System.nanoTime()-startTime)/1000000000.0 * 100d) / 100d + " secs)", "Success", 1);
+            
 
         } catch (Exception e) {  // IOException doesn't work here, trust me
             setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
             progressBar_XLSX.setVisible(false);
+            XLSX_Comparator.splitters = tempSplitters;  // sorun çıkarsa eski haline getir (Gereksiz "//" koymayı engelliyor)
             
-            System.out.println("Couldn't start GenomeDetector.start_XLSX_comparator() (line " + e.getStackTrace()[0].getLineNumber() + "): " + e);
+            System.out.println("Couldn't start GenomeDetector XLSX Comparator (line " + e.getStackTrace()[0].getLineNumber() + "): " + e);
             e.printStackTrace();
             
-            javax.swing.JOptionPane.showMessageDialog(this, "Search failed: One of the files are probably faulty. (XLSX Comparator)\n\nClick (i) button on the right corner of the\nscreen to see the rules of input excel files. \nPlease check the formatting and try again.\n\n\nDebug\n" + e, "Search failed", 2);
+            javax.swing.JOptionPane.showMessageDialog(frame, "Search failed (XLSX Comparator)\n\nClick (i) button on the right corner of the screen to see the rules\nof input excel files. Please check the formatting and try again.\n\n\nDebug:\n" + e, "Search failed", 2);
         }
-    }//GEN-LAST:event_compareButtonActionPerformed
-
+        GenomeDetector.running = false;
+    }
+    
+    
     private void addFileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addFileButtonActionPerformed
         JFileChooser fileChooser = new JFileChooser();
         
@@ -410,7 +447,22 @@ public class XLSX_ComparatorMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_addFileButtonActionPerformed
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
-        // TODO add your handling code here:
+        if (GenomeDetector.running) {
+            System.out.println("Cancel: interrupt signal given");
+            GenomeDetector.t.stop();
+            GenomeDetector.running = false;
+            
+            setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+            GenomeDetector.progressBar.setVisible(false);
+            XLSX_Comparator.splitters = XLSX_Comparator.splitters.replace("|", " ").replace("\\", "");
+            
+            // If cancelled during creation of a new excel file, delete that as it is corrupted and not in the wanted format
+            try {
+                Files.deleteIfExists(Paths.get(outPathLoc.getText() + "/" + outFileName.getText()));
+            } catch (IOException ex) {}
+            
+            javax.swing.JOptionPane.showMessageDialog(this, "Comparison cancelled\n\nNote: Try to use the cancel button sparingly.\nIt may crash the software.", "Cancelled", 2);
+        }
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void splitCheckboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_splitCheckboxActionPerformed
@@ -424,6 +476,18 @@ public class XLSX_ComparatorMenu extends javax.swing.JFrame {
     private void outDiffCheckboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_outDiffCheckboxActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_outDiffCheckboxActionPerformed
+
+    private void devButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_devButtonActionPerformed
+        System.out.println("Opening DEV CONSOLE");
+        
+        Thread t = new Thread() {
+            @Override
+            public void run() {
+                devConsole.wakeup();
+            }
+        };
+        t.start();
+    }//GEN-LAST:event_devButtonActionPerformed
 
     public static void wakeup() {
         try {
@@ -448,6 +512,7 @@ public class XLSX_ComparatorMenu extends javax.swing.JFrame {
     private javax.swing.JButton backButton;
     private javax.swing.JButton cancelButton;
     private javax.swing.JButton compareButton;
+    private javax.swing.JButton devButton;
     private javax.swing.JButton infoButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -458,7 +523,7 @@ public class XLSX_ComparatorMenu extends javax.swing.JFrame {
     private javax.swing.JLabel outPathLabel;
     private javax.swing.JTextField outPathLoc;
     private javax.swing.JTable pathsTable;
-    public static javax.swing.JProgressBar progressBar_XLSX;
+    private javax.swing.JProgressBar progressBar_XLSX;
     private javax.swing.JButton selectOutputPathButton;
     private javax.swing.JCheckBox splitCheckbox;
     private javax.swing.JTextField splitElementsTxtfld;

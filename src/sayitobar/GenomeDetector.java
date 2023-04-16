@@ -1,4 +1,4 @@
-/*  Last edit date: 10.01.2022  */
+/*  Last edit date: 15.02.2022  */
 
 package sayitobar;
 
@@ -11,6 +11,7 @@ import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
 import java.util.*;
+import javax.swing.JProgressBar;
 
 import org.apache.poi.openxml4j.exceptions.OpenXML4JException;
 import org.apache.poi.openxml4j.opc.OPCPackage;
@@ -18,12 +19,15 @@ import org.apache.poi.openxml4j.opc.PackageAccess;
 import org.xml.sax.SAXException;
 
 public class GenomeDetector {
-    public static final String version = "v0.4.9";
+    public static final String VERSION = "v0.5.0";
 
     public static final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();  // Get screen resolution
     public static int width  = (int) screenSize.getWidth();
     public static int height = (int) screenSize.getHeight();
     
+    public static Thread t;                  // for cancelling the comparison
+    public static boolean running = false;
+    public static JProgressBar progressBar;  // to control all progressBars in SwingMenus from one source
     
     // intersect: Durchschnitt/kesişim -> intersect multiple arrays (without duplicates)
     public static List<Integer> intersect(List<List<Integer>> arrays) {
@@ -77,7 +81,7 @@ public class GenomeDetector {
 
         
         // The package open is instantaneous, as it should be.
-        OPCPackage  p  = OPCPackage.open(XLSX_path, PackageAccess.READ);
+        OPCPackage p = OPCPackage.open(XLSX_path, PackageAccess.READ);
 
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
 

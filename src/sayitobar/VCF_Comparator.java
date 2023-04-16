@@ -43,10 +43,14 @@ public class VCF_Comparator {
                 if (line.startsWith("#")) continue;
                 
                 // else check if client wants to split cells & append it/them
-                if (XLSX_Comparator.isSplitChecked)
-                    pos.addAll(Arrays.asList(line.split("\t")[POS_INDEX].split(XLSX_Comparator.splitters)));
-                else
-                    pos.add(line.split("\t")[POS_INDEX]);
+                try {
+                    if (XLSX_Comparator.isSplitChecked)
+                        pos.addAll(Arrays.asList(line.split("\t")[POS_INDEX].split(XLSX_Comparator.splitters)));
+                    else
+                        pos.add(line.split("\t")[POS_INDEX]);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    throw new IOException("Headers row could not be found! (Check FCHR & ACHR)");
+                }
             }
 
             reader.close();
@@ -133,6 +137,8 @@ public class VCF_Comparator {
             reader.close();
             POS_INDEX = -1;
             System.out.println("\tFile " + paths[j] + " completed (" + (j+1) + "/" + paths.length + ")");
+            
+            GenomeDetector.progressBar.setValue((int) (GenomeDetector.progressBar.getValue() + (100-GenomeDetector.progressBar.getValue()) * (j+1.0)/paths.length));
         }
 
 
