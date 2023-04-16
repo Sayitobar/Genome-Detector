@@ -1,6 +1,7 @@
 # Genome-Detector
 * Searches for some genes in an Excel file
 * Compares multiple VCF or XLSX files for common/different positions (multisample comparison). It works like a simple comparator, but faster.
+<img width="558" alt="macss" src="https://user-images.githubusercontent.com/95364352/232304593-14e0d163-9bc3-4134-b1bf-aa552bdea038.png">
 
 # Gene Detector
 Searches for some genes in an XLSX file
