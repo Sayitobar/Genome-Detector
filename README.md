@@ -76,6 +76,7 @@ At last an Excel (.xlsx) file will be created in chosen output folder with multi
 ## New feature: Dev Console
 Click the gear icon on the top right corner, next to the (i) button. It will open a DevConsole window. There you can see every operation done. As there is no progress bar and sometimes program gets stuck due to faulty files, open dev console and see it with your eyes, if your file is being processed.
 
-
-###### Contact
+<sub><sup><a href="https://www.flaticon.com/free-icons/healthcare-and-medical" title="healthcare and medical icons">Healthcare and medical icons created by Muhammad_Usman - Flaticon</a></sup></sub>
+<br></br>
+##### Contact
 bsayitoglu@gmail.com
