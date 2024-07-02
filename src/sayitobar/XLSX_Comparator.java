@@ -19,35 +19,44 @@ public class XLSX_Comparator {
         long startTime = System.nanoTime();
         System.out.println("Obtaining common positions of: " + Arrays.toString(paths));
 
-        List<List<String>> commonPositions = new ArrayList<>();
+        List<List<String>> commonPositions = new ArrayList<>();  // like common genes (not indices)
         List<List<String>> positions = new ArrayList<>();  // [1st_files_positions, 2nd_files_positions, ...]
 
         // Iterate through all files (READ)
         for (int i = 0; i < paths.length; i++) {
+            System.out.println("Reading: " + paths[i]);
             File file = new File(paths[i]);
             BufferedReader reader = new BufferedReader(new FileReader(file));
 
+            int l = 0;  // current line
             String line;
-            List<String> pos = new ArrayList<>();
+            List<String> pos = new ArrayList<>();  // aimed positions of i'th file
 
             while ((line = reader.readLine()) != null) {
+                l += 1;
+                String[] lineContents = line.split("\t");
+                
                 // Get POS_INDEX
                 if (VCF_Comparator.POS_INDEX < 0 && line.contains(VCF_Comparator.ROWID_firstCell[i]) && line.contains(VCF_Comparator.ROWID_aimedCell[i])){
-                    VCF_Comparator.POS_INDEX = Arrays.asList(line.split("\t")).indexOf(VCF_Comparator.ROWID_aimedCell[i]);
+                    VCF_Comparator.POS_INDEX = Arrays.asList(lineContents).indexOf(VCF_Comparator.ROWID_aimedCell[i]);
+                    System.out.println("\tROWID_firstCell: " + VCF_Comparator.ROWID_firstCell[i]);
+                    System.out.println("\tROWID_aimedCell: " + VCF_Comparator.ROWID_aimedCell[i]);
+                    System.out.println("\tPOS_INDEX (col): " + VCF_Comparator.POS_INDEX + " = (" + lineContents[VCF_Comparator.POS_INDEX] + ")");
                     continue;
                 }
-
+                
                 // Check if this line is header part (#)
                 if (line.startsWith("#")) continue;
-
+                
                 // else check if client wants to split cells & append it/them
                 try {
                     if (isSplitChecked)
-                        pos.addAll(Arrays.asList(line.split("\t")[VCF_Comparator.POS_INDEX].split(splitters)));
+                        pos.addAll(Arrays.asList(lineContents[VCF_Comparator.POS_INDEX].trim().split(splitters)));
                     else
-                        pos.add(line.split("\t")[VCF_Comparator.POS_INDEX]);
+                        pos.add(lineContents[VCF_Comparator.POS_INDEX].trim());
                 } catch (ArrayIndexOutOfBoundsException e) {
-                    throw new IOException("Headers row could not be found! (Check FCHR & ACHR)");
+                    System.out.println("Line " + l + " (consisting " + lineContents.length + " cells): " + line);
+                    throw new IOException("Either: \n1. Headers row could not be found! (Check FCHR & ACHR) \nor\n2. Line is too long, try moving aimed cell (FCHR) to left.");
                 }
             }
 

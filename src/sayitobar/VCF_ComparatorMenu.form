@@ -35,11 +35,9 @@
                       <Component id="devButton" min="-2" pref="25" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="infoButton" min="-2" pref="24" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
-                      <Component id="selectOutputPathButton" min="-2" pref="26" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="102" attributes="0">
                               <Component id="cancelButton" min="-2" max="-2" attributes="0"/>
@@ -47,24 +45,9 @@
                               <Component id="compareButton" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Component id="jSeparator1" alignment="0" max="32767" attributes="0"/>
-                          <Component id="jScrollPane1" alignment="0" pref="675" max="32767" attributes="0"/>
-                          <Component id="outPathLoc" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jScrollPane1" alignment="0" pref="670" max="32767" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
-                              <Component id="outFileLabel" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="outFileName" max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="description2" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="description1" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="addFileButton" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="outPathLabel" min="-2" max="-2" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="splitCheckbox" min="-2" pref="133" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
@@ -74,12 +57,32 @@
                                   </Group>
                                   <Component id="outDiffCheckbox" alignment="0" min="-2" pref="438" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="removeButton" max="32767" attributes="0"/>
+                                  <Component id="addFileButton" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="outFileLabel" min="-2" max="-2" attributes="0"/>
+                                  <Component id="outPathLabel" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="outFileName" max="32767" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <Component id="outPathLoc" max="32767" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="selectOutputPathButton" min="-2" pref="26" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
                           </Group>
                       </Group>
-                      <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                   </Group>
               </Group>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
           <Component id="progressBar_VCF" alignment="0" max="32767" attributes="0"/>
       </Group>
@@ -98,34 +101,35 @@
               <Component id="jScrollPane1" min="-2" pref="136" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Component id="description1" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="splitElementsTxtfld" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="splitCheckbox" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="description2" min="-2" max="-2" attributes="0"/>
+                      <Component id="outDiffCheckbox" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="addFileButton" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="addFileButton" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="removeButton" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="splitElementsTxtfld" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="splitCheckbox" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="outDiffCheckbox" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="46" max="32767" attributes="0"/>
-              <Component id="outPathLabel" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace pref="65" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="selectOutputPathButton" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="outPathLoc" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="outPathLoc" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="outPathLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="outFileName" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="outFileLabel" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
               <Component id="jSeparator1" min="-2" pref="11" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -209,7 +213,10 @@
     </Component>
     <Component class="javax.swing.JLabel" name="outFileLabel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Output file (.xlsx):"/>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Helvetica Neue" size="13" style="1"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Output file name:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="outPathLoc">
@@ -270,22 +277,6 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JLabel" name="description1">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Helvetica Neue" size="10" style="2"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="FCHR: Firct cell of the categories row (headers row)"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="description2">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Helvetica Neue" size="10" style="2"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="ACHR: Aimed cell of the categories row (headers row) - to be compared"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JCheckBox" name="splitCheckbox">
       <Properties>
         <Property name="text" type="java.lang.String" value="Split cell text with"/>
@@ -340,6 +331,14 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cancelButtonActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="removeButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Remove"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="removeButtonActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

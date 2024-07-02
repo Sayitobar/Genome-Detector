@@ -4,6 +4,7 @@
  */
 package sayitobar;
 
+import java.awt.Color;
 import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
 
@@ -41,10 +42,8 @@ public class MainMenu extends javax.swing.JFrame {
     private void initComponents() {
 
         Title = new javax.swing.JLabel();
-        detectorButton = new javax.swing.JButton();
         vcfComparisonButton = new javax.swing.JButton();
         vcfcompExpLabel = new javax.swing.JLabel();
-        detectorExplLabel = new javax.swing.JLabel("<html>Search for some genes in patient's gene list</html>", javax.swing.SwingConstants.RIGHT);
         jSeparator1 = new javax.swing.JSeparator();
         xlsxComparisonButton = new javax.swing.JButton();
         xlsxcompExpLabel = new javax.swing.JLabel();
@@ -57,14 +56,6 @@ public class MainMenu extends javax.swing.JFrame {
         Title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Title.setText("Genome Detector");
 
-        detectorButton.setFont(new java.awt.Font("Futura", 0, 18)); // NOI18N
-        detectorButton.setText("Gene Detector");
-        detectorButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                detectorButtonActionPerformed(evt);
-            }
-        });
-
         vcfComparisonButton.setFont(new java.awt.Font("Futura", 0, 18)); // NOI18N
         vcfComparisonButton.setText("VCF Comparator");
         vcfComparisonButton.addActionListener(new java.awt.event.ActionListener() {
@@ -74,12 +65,8 @@ public class MainMenu extends javax.swing.JFrame {
         });
 
         vcfcompExpLabel.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
-        vcfcompExpLabel.setText("<html>Compare multiple VCF files and get common cells in selected column (great for: Multisample comparison)</html>");
-
-        detectorExplLabel.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
-        detectorExplLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        detectorExplLabel.setText("<html>Search for some genes in patient's gene list</html>");
-        detectorExplLabel.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        vcfcompExpLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        vcfcompExpLabel.setText("<html>Same thing for VCF files</html>");
 
         xlsxComparisonButton.setFont(new java.awt.Font("Futura", 0, 18)); // NOI18N
         xlsxComparisonButton.setText("XLSX Comparator");
@@ -102,18 +89,19 @@ public class MainMenu extends javax.swing.JFrame {
                     .addComponent(jSeparator1)
                     .addComponent(Title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(113, 113, 113))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(69, 69, 69)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(vcfComparisonButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(xlsxComparisonButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(detectorButton, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(54, 54, 54)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(xlsxcompExpLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(xlsxComparisonButton, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(xlsxcompExpLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(vcfcompExpLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(detectorExplLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addComponent(vcfComparisonButton, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(56, 56, 56)
+                        .addComponent(vcfcompExpLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -122,36 +110,19 @@ public class MainMenu extends javax.swing.JFrame {
                 .addComponent(Title, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(68, 68, 68)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(xlsxComparisonButton, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(vcfComparisonButton, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(49, 49, 49)
-                        .addComponent(detectorButton)
-                        .addGap(29, 29, 29)
-                        .addComponent(vcfComparisonButton)
-                        .addGap(29, 29, 29)
-                        .addComponent(xlsxComparisonButton))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
-                        .addComponent(detectorExplLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(vcfcompExpLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(xlsxcompExpLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(52, Short.MAX_VALUE))
+                    .addComponent(vcfcompExpLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(xlsxcompExpLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void detectorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_detectorButtonActionPerformed
-        System.out.println("Accessing genome detector");
-        
-        GenomeDetector.WinX = getX() + getWidth() /2;
-        GenomeDetector.WinY = getY() + getHeight()/2;
-        
-        close();
-        DetectorMenu.wakeup();
-    }//GEN-LAST:event_detectorButtonActionPerformed
 
     private void vcfComparisonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vcfComparisonButtonActionPerformed
         System.out.println("Accessing VCF genome comparator");
@@ -192,8 +163,6 @@ public class MainMenu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Title;
-    private javax.swing.JButton detectorButton;
-    private javax.swing.JLabel detectorExplLabel;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JButton vcfComparisonButton;
     private javax.swing.JLabel vcfcompExpLabel;

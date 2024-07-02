@@ -9,8 +9,6 @@ import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -76,6 +74,7 @@ public class XLSX_ComparatorMenu extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         outDiffCheckbox = new javax.swing.JCheckBox();
         devButton = new javax.swing.JButton();
+        removeButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -212,6 +211,13 @@ public class XLSX_ComparatorMenu extends javax.swing.JFrame {
             }
         });
 
+        removeButton.setText("Remove");
+        removeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -230,34 +236,43 @@ public class XLSX_ComparatorMenu extends javax.swing.JFrame {
                             .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(outFileLabel, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(outDiffCheckbox, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(selectOutputPathButton, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                         .addComponent(jScrollPane1)
                                         .addGroup(layout.createSequentialGroup()
-                                            .addComponent(splitCheckbox, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(Title, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(218, 218, 218)
+                                            .addComponent(devButton, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                    .addComponent(splitCheckbox, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                    .addComponent(splitElementsTxtfld, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                    .addComponent(jLabel1))
+                                                .addComponent(outDiffCheckbox, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGap(165, 165, 165)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(removeButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(addFileButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                            .addComponent(outFileLabel)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(splitElementsTxtfld, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(jLabel1)
-                                            .addGap(168, 168, 168)
-                                            .addComponent(addFileButton))
-                                        .addComponent(outFileName))
-                                    .addComponent(devButton, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(outFileName))))
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(242, 242, 242)
-                        .addComponent(Title, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(selectOutputPathButton, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(outPathLabel)
-                            .addComponent(outPathLoc, javax.swing.GroupLayout.PREFERRED_SIZE, 681, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(32, 32, 32)
+                                .addComponent(outPathLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(outPathLoc, javax.swing.GroupLayout.PREFERRED_SIZE, 536, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(infoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(8, 8, 8))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -277,17 +292,19 @@ public class XLSX_ComparatorMenu extends javax.swing.JFrame {
                     .addComponent(splitCheckbox)
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(outDiffCheckbox)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                .addComponent(outPathLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(outDiffCheckbox)
+                    .addComponent(removeButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(selectOutputPathButton)
-                    .addComponent(outPathLoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(outPathLoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(outPathLabel)))
                 .addGap(18, 18, 18)
-                .addComponent(outFileLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(outFileName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(outFileName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(outFileLabel))
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(21, 21, 21)
@@ -489,6 +506,13 @@ public class XLSX_ComparatorMenu extends javax.swing.JFrame {
         t.start();
     }//GEN-LAST:event_devButtonActionPerformed
 
+    private void removeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeButtonActionPerformed
+        int selection = pathsTable.getSelectedRow();
+        
+        if (selection > -1)  // as long as a row is selected, remove it
+            ((javax.swing.table.DefaultTableModel) pathsTable.getModel()).removeRow(selection);
+    }//GEN-LAST:event_removeButtonActionPerformed
+
     public static void wakeup() {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -524,6 +548,7 @@ public class XLSX_ComparatorMenu extends javax.swing.JFrame {
     private javax.swing.JTextField outPathLoc;
     private javax.swing.JTable pathsTable;
     private javax.swing.JProgressBar progressBar_XLSX;
+    private javax.swing.JButton removeButton;
     private javax.swing.JButton selectOutputPathButton;
     private javax.swing.JCheckBox splitCheckbox;
     private javax.swing.JTextField splitElementsTxtfld;

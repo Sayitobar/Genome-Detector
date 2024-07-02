@@ -1,4 +1,4 @@
-/*  Last edit date: 15.02.2022  */
+/*  Last edit date: 02.06.2024  */
 
 package sayitobar;
 
@@ -19,7 +19,7 @@ import org.apache.poi.openxml4j.opc.PackageAccess;
 import org.xml.sax.SAXException;
 
 public class GenomeDetector {
-    public static final String VERSION = "v0.5.0";
+    public static final String VERSION = "v0.5.3";
 
     public static final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();  // Get screen resolution
     public static int width  = (int) screenSize.getWidth();
@@ -70,9 +70,10 @@ public class GenomeDetector {
         // create new VCF file
         File f;
         if (temporary) {
+            String[] name = Paths.get(newFilePath).getFileName().toString().split("\\.");
             f = File.createTempFile(
-                    "GDTEMP_" + Paths.get(newFilePath).getFileName().toString().split("\\.")[0] + "_",
-                    "." + Paths.get(newFilePath).getFileName().toString().split("\\.")[1]
+                    "GDTEMP_" + name[0] + "_",
+                    "." + name[1]
             );
             f.deleteOnExit();  // işi bitince otomatik silinir
         }

@@ -35,20 +35,23 @@
               </Group>
               <EmptySpace min="-2" pref="113" max="-2" attributes="0"/>
           </Group>
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="vcfComparisonButton" max="32767" attributes="0"/>
-                  <Component id="xlsxComparisonButton" alignment="0" max="32767" attributes="0"/>
-                  <Component id="detectorButton" alignment="0" min="-2" pref="177" max="-2" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Component id="xlsxcompExpLabel" min="-2" pref="190" max="-2" attributes="0"/>
+                  <Component id="xlsxComparisonButton" min="-2" pref="205" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="43" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="xlsxcompExpLabel" min="-2" pref="242" max="-2" attributes="0"/>
-                  <Component id="vcfcompExpLabel" min="-2" pref="242" max="-2" attributes="0"/>
-                  <Component id="detectorExplLabel" min="-2" pref="229" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
+                      <Component id="vcfComparisonButton" min="-2" pref="205" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
+                      <Component id="vcfcompExpLabel" min="-2" pref="177" max="-2" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+              <EmptySpace pref="49" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -59,25 +62,17 @@
               <Component id="Title" min="-2" pref="50" max="-2" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="jSeparator1" min="-2" pref="3" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
-                      <Component id="detectorButton" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-                      <Component id="vcfComparisonButton" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-                      <Component id="xlsxComparisonButton" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-                      <Component id="detectorExplLabel" min="-2" pref="57" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="vcfcompExpLabel" min="-2" pref="54" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="xlsxcompExpLabel" min="-2" pref="61" max="-2" attributes="0"/>
-                  </Group>
+              <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="xlsxComparisonButton" alignment="3" min="-2" pref="51" max="-2" attributes="0"/>
+                  <Component id="vcfComparisonButton" alignment="3" min="-2" pref="51" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="52" max="32767" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="vcfcompExpLabel" min="-2" pref="54" max="-2" attributes="0"/>
+                  <Component id="xlsxcompExpLabel" alignment="0" min="-2" pref="96" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="45" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -91,17 +86,6 @@
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="Genome Detector"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="detectorButton">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Futura" size="18" style="0"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Gene Detector"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="detectorButtonActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="vcfComparisonButton">
       <Properties>
@@ -119,23 +103,9 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="SansSerif" size="13" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="&lt;html&gt;Compare multiple VCF files and get common cells in selected column (great for: Multisample comparison)&lt;/html&gt;"/>
+        <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="text" type="java.lang.String" value="&lt;html&gt;Same thing for VCF files&lt;/html&gt;"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="detectorExplLabel">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="SansSerif" size="13" style="0"/>
-        </Property>
-        <Property name="horizontalAlignment" type="int" value="4"/>
-        <Property name="text" type="java.lang.String" value="&lt;html&gt;Search for some genes in patient&apos;s gene list&lt;/html&gt;"/>
-        <Property name="horizontalTextPosition" type="int" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="javax.swing.SwingConstants.RIGHT" type="code"/>
-        </Property>
-      </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JLabel(&quot;&lt;html&gt;Search for some genes in patient&apos;s gene list&lt;/html&gt;&quot;, javax.swing.SwingConstants.RIGHT)"/>
-      </AuxValues>
     </Component>
     <Component class="javax.swing.JSeparator" name="jSeparator1">
     </Component>

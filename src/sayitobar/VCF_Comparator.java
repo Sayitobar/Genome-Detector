@@ -26,16 +26,23 @@ public class VCF_Comparator {
 
         // Iterate through all files (READ)
         for (int i = 0; i < paths.length; i++) {
+            System.out.println("Reading: " + paths[i]);
             File file = new File(paths[i]);
             BufferedReader reader = new BufferedReader(new FileReader(file));
 
+            int l = 0;
             String line;
             List<String> pos = new ArrayList<>();
 
             while ((line = reader.readLine()) != null) {
+                l += 1;
+                
                 // Get POS_INDEX
                 if (POS_INDEX < 0 && line.contains(ROWID_firstCell[i]) && line.contains(ROWID_aimedCell[i])){
                     POS_INDEX = Arrays.asList(line.split("\t")).indexOf(ROWID_aimedCell[i]);
+                    System.out.println("\tROWID_firstCell: " + VCF_Comparator.ROWID_firstCell[i]);
+                    System.out.println("\tROWID_aimedCell: " + VCF_Comparator.ROWID_aimedCell[i]);
+                    System.out.println("\tPOS_INDEX (col): " + POS_INDEX + " = (" + line.split("\t")[POS_INDEX] + ")");
                     continue;
                 }
 
@@ -49,7 +56,8 @@ public class VCF_Comparator {
                     else
                         pos.add(line.split("\t")[POS_INDEX]);
                 } catch (ArrayIndexOutOfBoundsException e) {
-                    throw new IOException("Headers row could not be found! (Check FCHR & ACHR)");
+                    System.out.println("Line " + l + "(consisting " + line.split("\t").length + " cells): " + line);
+                    throw new IOException("Either: \n1. Headers row could not be found! (Check FCHR & ACHR) \nor\n2. Line is too long, try moving aimed cell (FCHR) to left.");
                 }
             }
 
@@ -91,54 +99,57 @@ public class VCF_Comparator {
         // Create new Excel file as OUTPUT
         SXSSFWorkbook wb_out = new SXSSFWorkbook();
 
-        for (int j = 0; j < paths.length; j++) {
+        for (int f = 0; f < paths.length; f++) {
             // read original file to get occurrence-rows
-            File file = new File(paths[j]);
-            BufferedReader reader = new BufferedReader(new FileReader(file));
+            File file = new File(paths[f]);
+            BufferedReader sourceReader = new BufferedReader(new FileReader(file));
 
+            // create new file
             String n = file.getName();
             if (file.getName().startsWith("GDTEMP_"))  // means we're dealing with an temp file
                 n = n.substring(0, n.lastIndexOf("_")).replaceFirst("GDTEMP_", "") + ".xlsx";
             SXSSFSheet spreadsheet = wb_out.createSheet(n);
 
 
-            String line;
+            String sourceLine;
             int row = 0;
-            while ((line = reader.readLine()) != null) {
+            while ((sourceLine = sourceReader.readLine()) != null) {
                 // Don't write config part
-                if (line.startsWith("##")) continue;
+                if (sourceLine.startsWith("##")) continue;
+                
+                String[] sLineContents = sourceLine.split("\t");
 
-                if (POS_INDEX < 0 && line.contains(ROWID_firstCell[j]) && line.contains(ROWID_aimedCell[j])) {
-                    POS_INDEX = Arrays.asList(line.split("\t")).indexOf(ROWID_aimedCell[j]);
+                if (POS_INDEX < 0 && sourceLine.contains(ROWID_firstCell[f]) && sourceLine.contains(ROWID_aimedCell[f])) {
+                    POS_INDEX = Arrays.asList(sLineContents).indexOf(ROWID_aimedCell[f]);
                 }
 
                 // If we're in Categories/Headers row, create Headers row.
-                if (line.contains(ROWID_firstCell[j]) && line.contains(ROWID_aimedCell[j])) {
+                if (sourceLine.contains(ROWID_firstCell[f]) && sourceLine.contains(ROWID_aimedCell[f])) {
                     spreadsheet.createRow(row);
-                    for (int i = 0; i < line.split("\t").length; i++) {
-                        spreadsheet.getRow(row).createCell(i).setCellValue(line.split("\t")[i]);
+                    for (int i = 0; i < sLineContents.length; i++) {
+                        spreadsheet.getRow(row).createCell(i).setCellValue(sLineContents[i]);
                     }
                     row++;
                 }
 
                 // If not, check if occurrence is in that original line. If so, insert it.
-                else if (commonPositions.get(j).contains(line.split("\t")[POS_INDEX])) {
+                else if (commonPositions.get(f).contains(sLineContents[POS_INDEX].trim())) {
                     spreadsheet.createRow(row);
 
-                    for (int i = 0; i < line.split("\t").length; i++) {     // cells
-                        spreadsheet.getRow(row).createCell(i).setCellValue( // Import contents
-                                line.split("\t")[i]
-                        );
+                    for (int i = 0; i < sLineContents.length; i++) {     // cells
+                        spreadsheet.getRow(row).createCell(i).setCellValue(
+                                sLineContents[i]
+                        );  // Import contents
                     }
                     row++;
                 }
             }
 
-            reader.close();
+            sourceReader.close();
             POS_INDEX = -1;
-            System.out.println("\tFile " + paths[j] + " completed (" + (j+1) + "/" + paths.length + ")");
+            System.out.println("\tFile " + paths[f] + " completed (" + (f+1) + "/" + paths.length + ")");
             
-            GenomeDetector.progressBar.setValue((int) (GenomeDetector.progressBar.getValue() + (100-GenomeDetector.progressBar.getValue()) * (j+1.0)/paths.length));
+            GenomeDetector.progressBar.setValue((int) (GenomeDetector.progressBar.getValue() + (100-GenomeDetector.progressBar.getValue()) * (f+1.0)/paths.length));
         }
 
 
