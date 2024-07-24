@@ -1,61 +1,56 @@
 # Genome-Detector
-* Compares multiple XLSX or VCF files for common/different positions (intended for multisample comparison). It works like a simple file comparator, but faster.
+Efficiently compares multiple XLSX or VCF (Variant Call Format) files to identify common/different genomic positions, designed specifically for multisample comparisons. This tool functions as a specialized file comparator, optimized for speed and tailored to handle the intricacies of VCF files.
 <img width="552" alt="image" src="https://github.com/Sayitobar/Genome-Detector/assets/95364352/827da7fe-86d4-4892-a0e4-72b9346ca734">
 
-# XLSX Comparison
-Compares multiple XLSX files for common/different positions (Suitable for every use. Fast and reliable. Engineered for multisample comparison)
+## XLSX Comparison
+Compares multiple XLSX files to identify common/different positions. Suitable for any use. Fast and reliable. Engineered for multisample comparisons.
 
-### How to use Genome Detector - XLSX Comparator:
-* Add at least 2 XLSX Excel files by clicking `Add file` button (there is no file number limit)
-* Change`FCHR` & `ACHR` of every file!
-  - FCHR: First Cell of the Categories row. Find your headers row, (usually the first row) write the first cell's value here (most left cell).
-  - ACHR: Aimed Cell of the Categories row. Find your headers row, find the column you want to compare, write the header of that column here.
-* If desired, you can:
-  - change your pre-selected `Output folder`
-  - name your new Excel file `Output file (.xlsx)`
-  - mark/unmark `Split cell text` or add your custom splitter
-  - mark/unmark `Output the differences` (check this if you need discordant comparison)
+### How to Use Genome-Detector: XLSX Comparator
+1. **Add Files**: Click the `Add file` button to add at least two XLSX Excel files (no file number limit).
+2. **Set Parameters**: 
+   - `First Cell`: First Cell of the Categories row. Find your headers row (usually the first row) and write the first cell's value here (the most left cell).
+   - `Aimed Cell`: Aimed Cell of the Categories row. Find the column you want to compare, and write the header of that column here.
+3. **Optional Settings**:
+   - Change the `Output folder` and `Output file type`.
+   - Name your new Excel file `Output file (.xlsx)`.
+   - Mark/unmark `Split cell text` or add your custom splitter (Add a space between every splitter).
+   - Mark/unmark `Discordant Comparison`. Check this to output differences instead of commonities.
 
-At last an Excel (.xlsx) file will be created in chosen output folder with multiple spreadsheets containing common positions of XLSX files. If `Output the differences` checked, each spreadsheet will have it's own differences.
+An Excel (.xlsx) file will be created in the chosen output folder with multiple spreadsheets containing common/different positions of the XLSX files. If VCF is selected as output type, each VCF file will contain its commonities/differences.
 
-### Rules of input XLSX files: (for self debugging)
-1. Input file name mustn't contain illegal characters like `.` `:` or `'`.              Otherwise, program will crash.
-2. You should fill `FCHR` & `ACHR` cells correctly, these are **_case-sensitive_**.    Otherwise, program will crash.
-3. All files should be in Excel Workbook ".xlsx" format (not .xls or not `Strict Open XML Spreadsheet` as it has the same suffix .xlsx)
-4. First rows of XLSX files are allowed to have metadata starting with "##". If they don't exist, it's perfect. (As these kinds of files mostly get converted from a VCF file to Excel, they tend to have "##" rows)
-5. Numbers under the positions column may have String values to make reading more easy (like 132.681). In that case, cell will be read as an integer value.
-6. There mustn't be a highlighted/edited cell in a row under the final row. (For example, last row is row number 351, you accidently highlighted row 462. Algorithm thinks there are more data between those, therefore it crashes.
+
+### Input XLSX File Rules (for Self Debugging)
+1. Input file name must not contain illegal characters like `.` `:` or `'`.
+2. `First Cell` & `Aimed Cell` parameters must be typed in correctly and are **_case-sensitive_**.
+3. All files should be in Excel Workbook ".xlsx" format (not ".xls" or `Strict Open XML Spreadsheet`).
+4. The first rows of XLSX files can have metadata starting with "##". If they don't exist, it's even better.
+6. There must not be a highlighted/edited cell in a row under the final row. For example, if the last row is 351 and you accidentally highlighted row 462, the algorithm will think there are more data between those rows, causing it to crash.
+
 <img width="756" alt="example xlsx" src="https://user-images.githubusercontent.com/95364352/232305398-b3ae6cd7-fda7-4a0a-9d43-17b2a27e007f.png">
 
-# VCF Comparison
-Compares multiple VCF files for common/different positions (for multisample comparison)
+## VCF Comparison
+Compares multiple VCF (Variant Call Format) files for common/different positions, optimized for multisample comparisons. (Faster than XLSX Comparator)
 
-(Faster than XLSX Comparator)
+### How to use Genome-Detector: VCF Comparator
+1. **Add Files**: Click the `Add file` button to add at least two VCF files (no file number limit).
+2. **Hit `Compare`**
+3. **Optional Settings**:
+   - Change the `Output folder` and `Output file type`.
+   - Name your new Excel file `Output file (.vcf)`.
+   - Mark/unmark `Discordant Comparison`. Check this to output differences instead of commonities.
 
-### How to use Genome Detector - VCF Comparator:
-* Add at least 2 VCF (Variant Call Format) files by clicking `Add file` button (there is no file number limit)
-* Change`FCHR` & `ACHR` of every file!
-  - FCHR: First Cell of the Categories row. Find your headers row, (usually the first row) write the first cell's value here (most left cell).
-  - ACHR: Aimed Cell of the Categories row. Find your headers row, find the column you want to compare, write the header of that column here.
-* If desired, you can:
-  - change your pre-selected `Output folder`
-  - name your new Excel file `Output file (.xlsx)`
-  - mark/unmark `Split cell text` or add your custom splitter
-  - mark/unmark `Output the differences` (check this if you need discordant comparison)
+An Excel or VCF file will be created in the chosen output folder with multiple spreadsheets containing common/different positions of the VCF files. If VCF is selected as output type, each VCF file will contain its commonities/differences.
 
-At last an Excel (.xlsx) file will be created in chosen output folder with multiple spreadsheets containing common positions of VCF files. If `Output the differences` checked, each spreadsheet will have it's own differences.
-
-### Rules of input VCF files:
-1. Input file name mustn't contain illegal characters like `.` `:` or `'`.              Otherwise, program will crash.
-2. You should fill `FCHR` & `ACHR` cells correctly, these are **_case-sensitive_**.    Otherwise, program will crash.
-3. It is assumed that first rows are metadata for VCF file, which start with "##". If they don't exist, it is no problem.
-4. Numbers under the positions column may have String values to make reading more easy (like 132.681). In that case, cell will be read as an integer value.
-5. It's the best if you don't alter/change/touch the VCF file before processing it, to make sure a potential error is not your doing.
+### Input VCF File Rules
+1. Input file name must not contain illegal characters like `.` `:` or `'`.
+2. Metadata lines in a VCF file should begin with `##` and headers line should begin with `#`, following the standard VCF file format.
+3. The first header cell is designated for chromosomes and the second for positions, as commonly formatted in VCF files. However, the names of these headers can be customized.
+4. It is best not to alter or change the VCF file before processing it to avoid potential errors.
 
 ## New feature: Dev Console
-Click the gear icon on the top right corner, next to the (i) button. It will open a DevConsole window. There you can see every operation done. As there is no progress bar and sometimes program gets stuck due to faulty files, open dev console and see it with your eyes, if your file is being processed.
+Click the gear icon on the top right corner, next to the (i) button, to open the DevConsole window. Here, you can see every operation done. In case of an unexpected error, open the dev console to check if your file is being processed correctly, or print the console log to share it with others.
 
 <sub><sup><a href="https://www.flaticon.com/free-icons/healthcare-and-medical" title="healthcare and medical icons">App icon by: Healthcare and medical icons created by Muhammad_Usman - Flaticon</a></sup></sub>
 <br></br>
 ##### Contact
-bsayitoglu@gmail.com
+For any questions or support, contact: bsayitoglu@gmail.com
