@@ -1,6 +1,8 @@
 # Genome-Detector
 Efficiently compares multiple XLSX or VCF (Variant Call Format) files to identify common/different genomic positions, designed specifically for multisample comparisons. This tool functions as a specialized file comparator, optimized for speed and tailored to handle the intricacies of VCF files.
+
 <img width="552" alt="image" src="https://github.com/Sayitobar/Genome-Detector/assets/95364352/827da7fe-86d4-4892-a0e4-72b9346ca734">
+
 
 ## XLSX Comparison
 Compares multiple XLSX files to identify common/different positions. Suitable for any use. Fast and reliable. Engineered for multisample comparisons.
@@ -47,7 +49,7 @@ An Excel or VCF file will be created in the chosen output folder with multiple s
 3. The first header cell is designated for chromosomes and the second for positions, as commonly formatted in VCF files. However, the names of these headers can be customized.
 4. It is best not to alter or change the VCF file before processing it to avoid potential errors.
 
-## New feature: Dev Console
+## Important feature: Dev Console
 Click the gear icon on the top right corner, next to the (i) button, to open the DevConsole window. Here, you can see every operation done. In case of an unexpected error, open the dev console to check if your file is being processed correctly, or print the console log to share it with others.
 
 <sub><sup><a href="https://www.flaticon.com/free-icons/healthcare-and-medical" title="healthcare and medical icons">App icon by: Healthcare and medical icons created by Muhammad_Usman - Flaticon</a></sup></sub>
