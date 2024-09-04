@@ -1,7 +1,7 @@
 # Genome-Detector
 Efficiently compares multiple XLSX or VCF (Variant Call Format) files to identify common/different genomic positions, designed specifically for multisample comparisons. This tool functions as a specialized file comparator, optimized for speed and tailored to handle the intricacies of VCF files.
 
-<img width="552" alt="image" src="https://github.com/Sayitobar/Genome-Detector/assets/95364352/827da7fe-86d4-4892-a0e4-72b9346ca734">
+<img width="557" alt="mainss" src="https://github.com/user-attachments/assets/467943d9-9448-417f-906d-26ec101113e0">
 
 
 ## XLSX Comparison
@@ -28,7 +28,7 @@ An Excel (.xlsx) file will be created in the chosen output folder with multiple 
 4. The first rows of XLSX files can have metadata starting with "##". If they don't exist, it's even better.
 6. There must not be a highlighted/edited cell in a row under the final row. For example, if the last row is 351 and you accidentally highlighted row 462, the algorithm will think there are more data between those rows, causing it to crash.
 
-<img width="756" alt="example xlsx" src="https://user-images.githubusercontent.com/95364352/232305398-b3ae6cd7-fda7-4a0a-9d43-17b2a27e007f.png">
+<img width="757" alt="xlsxss" src="https://github.com/user-attachments/assets/956e0a47-61ef-43c3-b10f-626f07739706">
 
 ## VCF Comparison
 Compares multiple VCF (Variant Call Format) files for common/different positions, optimized for multisample comparisons. (Faster than XLSX Comparator)
@@ -50,7 +50,7 @@ An Excel or VCF file will be created in the chosen output folder with multiple s
 4. It is best not to alter or change the VCF file before processing it to avoid potential errors.
 
 ## Important feature: Dev Console
-Click the gear icon on the top right corner, next to the (i) button, to open the DevConsole window. Here, you can see every operation done. In case of an unexpected error, open the dev console to check if your file is being processed correctly, or print the console log to share it with others.
+Click the disk drive icon on the top right corner, next to the (i) button, to open the Dev-Console window. Here, you can see every operation done. In case of an unexpected error, open the Dev-Console to check if your file is being processed correctly, or print the console log to share it with others.
 
 <sub><sup><a href="https://www.flaticon.com/free-icons/healthcare-and-medical" title="healthcare and medical icons">App icon by: Healthcare and medical icons created by Muhammad_Usman - Flaticon</a></sup></sub>
 <br></br>
